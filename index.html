@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="farkle.css">
+	<title>Farkle!</title>
+</head>
+
+<!-- Removed onload bc of bugs, put it in js file.-->
+<body>
+	<header class="row header">Welcome to Farkle!</header>
+	<div class="row">
+		<!-- Dice images -->
+		<div class="dice" id="dice-div"> 
+			<img class="die" src="images/1.png" id="die1" data-number="0" onclick="diceClick(this)">
+			<img class="die" src="images/2.png" id="die2" data-number="1" onclick="diceClick(this)">
+			<img class="die" src="images/3.png" id="die3" data-number="2" onclick="diceClick(this)">
+			<img class="die" src="images/4.png" id="die4" data-number="3" onclick="diceClick(this)">
+			<img class="die" src="images/5.png" id="die5" data-number="4" onclick="diceClick(this)">
+			<img class="die" src="images/6.png" id="die6" data-number="5" onclick="diceClick(this)">
+		</div>
+	</div>
+	<!-- Scoring -->
+	<div class="row score" id="current-turn">Turn: P1</div>
+	<div class="row score" id="player-one-score">P1: 0 </div>
+	<div class="row score" id="player-two-score">P2: 0 </div>
+
+	<!-- Button row -->
+	<div class="row">
+		<button id = "roll-button" class="button roll column" onclick="rollDice()">Roll Dice</button>
+		<button id = "bank-button" class="button bank column" onclick="bankScore()">Bank Score</button>
+		<button id ="store-button" class="button store column" onclick="storeScore()">Store Selected Dice</button>
+	</div>
+	<script type="text/javascript" src="farkle.js"></script>
+</body>
+</html>
