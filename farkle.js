@@ -27,19 +27,19 @@ function initializeDice(){
 	}
 }
 
+/* Broken function 
 function setAllDiceClicks() {
 	let diceDivChildren = diceDiv.children;
 	console.log("Children")
-	console.log(diceDivChildren);
-	console.log(diceDivChildren.length);
+
 	for (let i = 0; i < diceDivChildren.length; i++){
 		let currentDie = diceDivChildren[i];
-		console.log(currentDie);
-		currentDie.setAttribute("onclick", diceClick());
-		console.log(currentDie);
+		//console.log(currentDie);
+		currentDie.setAttribute("onclick", diceClick(this));
+		//console.log(currentDie);
 	}
 }
-
+*/
 
 /*Rolling dice values*/
 function rollDice(){
@@ -58,15 +58,19 @@ function updateDiceImg(){
 	for(var i = 0; i < NUM_OF_DICE; i++){
 		diceImage = "images/" + diceArr[i].value + ".png";
 		document.getElementById(diceArr[i].id).setAttribute("src", diceImage);
+		//document.getElementById(diceArr[i].id).setAttribute("onclick", diceClick(diceArr[i].id));
 	}
 }
 
+/**
+ * Sets the clicked data of the image being clicked
+ * @param {*} img The image being clicked 
+ */
 function diceClick(img){
-	console.log(img);
 	var i = img.getAttribute("data-number");
 
 	img.classList.toggle("transparent");
-	img.removeAttribute("onclick");
+	img.setAttribute("onclick", null);
 	if(diceArr[i].clicked === 0){
 		diceArr[i].clicked = 1;
 	}
@@ -119,12 +123,6 @@ function takeTurn() {
 	// Make the turnData array accessible to push die rolls
 
 	// At this point, the player can work with the logic of the buttons
-	if (isPlayerOne){
-		
-	}
-	else {
-
-	}
 }
 
 /**
@@ -133,7 +131,6 @@ function takeTurn() {
  * simple scorings (1, or 5, etc.) to ensure they get counted.
  */
 function checkScore() {
-	// TODO: Dummy value, fix with actual scoring later
 	scoringObject = {}
 	turnScore = 0
 	// Tally the number of repeats for each number on the die
@@ -146,7 +143,8 @@ function checkScore() {
 			scoringObject[numOnDie] = 1
 		}
 	}
-
+	// See if there are three of a kinds, then see if there
+	// are individual 5s and 1s
 	for (numOnDie in scoringObject){
 		numOfRepeats = scoringObject[numOnDie];
 		if (numOfRepeats >= 3){
@@ -219,7 +217,7 @@ function storeScore() {
 	let diceDiv = document.getElementsByClassName("dice");
 	for (let i = 0; i < diceArr.length; i++){
 		if (diceArr[i].clicked == 1){
-			console.log(diceArr[i]);
+			//console.log(diceArr[i]);
 			turnData.push(diceArr[i].value);
 			clicked += 1
 
@@ -228,8 +226,22 @@ function storeScore() {
 	}
 	checkScore()
 	setScore()
+	checkWinner()
 	takeTurn()
 	//checkScore();
+}
+
+/** 
+ * Simple check winner function
+ */
+function checkWinner(){
+	if (playerOneTotal >= 10000){
+		alert("Player one wins!");
+	}
+	else if (playerTwoTotal >= 10000)
+	{
+		alert("Player two wins!");
+	}
 }
 
 /**
@@ -243,14 +255,6 @@ function switchPlayer(){
 		currentPlayer = "P2"
 	}
 	turnElement.innerText = `Turn: ${currentPlayer}`;
-}
-
-
-/**
- * Remove clicked dice for the remainder of that player's turn
- */
-function removeDie() {
-
 }
 
 /**
@@ -276,14 +280,8 @@ function gameStates() {
 		gameStates();
 	}
 	else if (state == "startTurn"){
-		takeTurn();
-		
+		takeTurn();	
 	}
-	
-
-
-
-
 }
 
 
